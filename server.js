@@ -2,10 +2,14 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const PING_URL = "https://mmautoworks.onrender.com";
+const FOURTEEN_MIN = 14 * 60 * 1000; // 14 minutes in ms
 
 // Middleware
 app.use(cors());
@@ -195,6 +199,19 @@ app.post('/api/contact', async (req, res) => {
     console.error('Error processing contact message:', error);
     res.status(500).json({ error: 'Failed to process contact message' });
   }
+});
+
+setInterval(async () => {
+  try {
+    const res = await fetch(PING_URL);
+    console.log(`[${new Date().toISOString()}] Pinged ${PING_URL} - Status:`, res.status);
+  } catch (err) {
+    console.error(`[${new Date().toISOString()}] Ping failed:`, err.message);
+  }
+}, FOURTEEN_MIN);
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
 // Start server
