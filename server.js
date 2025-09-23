@@ -201,14 +201,14 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-setInterval(async () => {
-  try {
-    const res = await fetch(PING_URL);
-    console.log(`[${new Date().toISOString()}] Pinged ${PING_URL} - Status:`, res.status);
-  } catch (err) {
-    console.error(`[${new Date().toISOString()}] Ping failed:`, err.message);
-  }
-}, FOURTEEN_MIN);
+// setInterval(async () => {
+//   try {
+//     const res = await fetch(PING_URL);
+//     console.log(`[${new Date().toISOString()}] Pinged ${PING_URL} - Status:`, res.status);
+//   } catch (err) {
+//     console.error(`[${new Date().toISOString()}] Ping failed:`, err.message);
+//   }
+// }, FOURTEEN_MIN);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
